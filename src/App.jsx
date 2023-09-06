@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import { v4 as uuid } from "uuid";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import ContactForm from "./components/ContactForm";
@@ -18,7 +23,16 @@ function App() {
     const setId = uuid();
     const newNewContact = { ...newContact, id: setId };
     setGlobalList((currList) => [...currList, newNewContact]);
-    console.log(newNewContact);
+    // console.log(newNewContact);
+  };
+
+  const modifyDescFunc = (id, newDesc) => {
+    const updatedContact = globalList.map((list) => {
+      if (list.id === id) {
+        return { ...list, desc: newDesc };
+      } else return list;
+    });
+    setGlobalList(updatedContact);
   };
 
   const removeFunc = (id) => {
@@ -52,10 +66,16 @@ function App() {
               <ContactForm {...props} addContactFunc={addContactFunc} />
             )}
           />
-          <Route path="/contact/:id" component={ContactDetails} />
+          <Route
+            exact
+            path="/contact/:id"
+            component={withRouter((props) => (
+              <ContactDetails {...props} modifyDescFunc={modifyDescFunc} />
+            ))}
+          />
           <Route
             path="/contact_delete/:id"
-            component={(props) => (
+            render={(props) => (
               <DeleteConfirmation {...props} removeFunc={removeFunc} />
             )}
           />

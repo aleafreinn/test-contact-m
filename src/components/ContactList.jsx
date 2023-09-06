@@ -1,13 +1,27 @@
 import ListContainer from "./ListContainer";
-// import {useState} from 'react'
+// import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const ContactList = (props) => {
+  // const [currList, setCurrList] = useState({});
+
   const totalList = props.globalList.map((list) => {
+    // let newList = list;
+    // const modifyList = (newDesc) => {
+    //   newList = { ...list, desc: newDesc };
+    //   setCurrList(newList);
+    //   // list = { ...currList };
+    //   console.log(newList);
+    //   console.log("im working");
+    // };
     return (
       <>
-        <ListContainer key={list.id} listContent={list} />
+        <ListContainer
+          key={/* currList.id ??  */ list.id}
+          listContent={/* currList[0] ??  */ list}
+          // modifyList={modifyList}
+        />
       </>
     );
   });
@@ -28,7 +42,7 @@ const ContactList = (props) => {
         </h2>
         {totalList}
         <Link to="/add">
-          <button className="bg-white px-4 py-2 text-gray-800">
+          <button className="animate-pulse bg-white px-4 py-2 text-gray-800">
             {props.globalList[0] ? "Add another contact" : "Add a contact"}
           </button>
         </Link>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // import {v4 as uuid} from 'uuid'
 
@@ -7,6 +8,7 @@ class ContactForm extends React.Component {
     id: "",
     name: "",
     email: "",
+    desc: "",
   };
 
   state = this.initForm;
@@ -22,7 +24,7 @@ class ContactForm extends React.Component {
     // this.setState({id: '1'})
     this.props.addContactFunc(this.state);
     this.setState(this.initForm);
-    console.log(this.props); //to see the .history.push()
+    // console.log(this.props); //to see the .history.push()
     this.props.history.push("/");
   };
 
@@ -60,6 +62,11 @@ class ContactForm extends React.Component {
             Add contact
           </button>
         </form>
+        <Link to="/">
+          <button className="m-4 rounded-md bg-slate-200 px-2 py-1 text-gray-800">
+            Back
+          </button>
+        </Link>
       </>
     );
   }
