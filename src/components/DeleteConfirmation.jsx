@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
+// import PropTypes from "prop-types";
+import { useMainCrud } from "../context/MainCrudContext";
 
-const DeleteConfirmation = (props) => {
-  const { id, name, email } = props.location.state.contactDelete;
+const DeleteConfirmation = () => {
+  const location = useLocation();
+  const { id, name, email } = location.state.contactDelete;
+  const { removeFunc } = useMainCrud();
   return (
     <>
       <hr className="w-[95%]" />
@@ -15,7 +18,7 @@ const DeleteConfirmation = (props) => {
       <div className="flex flex-row items-center">
         <Link to="/">
           <button
-            onClick={() => props.removeFunc(id)}
+            onClick={() => removeFunc(id)}
             className=" m-2 border-green-800 px-2 py-1 text-sm text-green-500 transition-all duration-200 ease-in-out hover:border-transparent hover:bg-green-500 hover:text-gray-800 "
           >
             Yes
@@ -33,6 +36,6 @@ const DeleteConfirmation = (props) => {
 
 export default DeleteConfirmation;
 
-DeleteConfirmation.propTypes = {
-  removeFunc: PropTypes.function,
-}.isRequired;
+// DeleteConfirmation.propTypes = {
+//   location: PropTypes.object,
+// }.isRequired;
